@@ -122,56 +122,69 @@ function changeStatus(event){
 // shows array for the first time
 for( let i = 0; i < newLibrary.length; i++){
      
-  let div = document.createElement('div');
-  div.classList.add("bookcard");
+  // let div = document.createElement('div');
+  // div.classList.add("bookcard");
 
-  let botDiv = document.createElement('div')
-  botDiv.classList.add('top-section')
-  let oneDiv = document.createElement('div')
-  oneDiv.classList.add('main-section')
+  // let botDiv = document.createElement('div')
+  // botDiv.classList.add('top-section')
+  // let oneDiv = document.createElement('div')
+  // oneDiv.classList.add('main-section')
 
-  let author = document.createElement('p');
-  author.classList.add("author");
-  author.appendChild(document.createTextNode("by " + newLibrary[i].author));
+  let cardDiv = `<div class="bookcard">
+    <div class="top-section">  
+      <button class="status">${newLibrary[i].status}</button>
+      <button class="remove" onclick="removeBook()">✖ Remove</button>
+    </div>
+    <div class="main-section">
+      <p class="title">${newLibrary[i].title}</p>
+      <p class="author">by ${newLibrary[i].author}</p>
+      <p class="number-of-pages">${newLibrary[i].numOfPages} pages</p>
+    </div>
+  </div>`
+  fullCap.innerHTML = cardDiv;
+
+  // let author = document.createElement('p');
+  // author.classList.add("author");
+  // author.appendChild(document.createTextNode("by " + newLibrary[i].author));
     
-  let removeBtn = document.createElement('button');
-  removeBtn.classList.add("remove");
-  removeBtn.appendChild(document.createTextNode('✖ Remove'));
+  // let removeBtn = document.createElement('button');
+  // removeBtn.classList.add("remove");
+  // removeBtn.appendChild(document.createTextNode('✖ Remove'));
 
-  let title = document.createElement('p');
-  title.classList.add("title");
-  title.appendChild(document.createTextNode(newLibrary[i].title));
+  // let title = document.createElement('p');
+  // title.classList.add("title");
+  // title.appendChild(document.createTextNode(newLibrary[i].title));
     
-  let numOfPages = document.createElement('p');
-  numOfPages.classList.add("number-of-pages");
-  numOfPages.appendChild(document.createTextNode(newLibrary[i].numOfPages + " pages"));
+  // let numOfPages = document.createElement('p');
+  // numOfPages.classList.add("number-of-pages");
+  // numOfPages.appendChild(document.createTextNode(newLibrary[i].numOfPages + " pages"));
     
-  let status = document.createElement('button');
-  status.classList.add("status");
-  status.appendChild(document.createTextNode(newLibrary[i].status));
+  // let status = document.createElement('button');
+  // status.classList.add("status");
+  // status.appendChild(document.createTextNode(newLibrary[i].status));
 
-  if(newLibrary[i].status === "Reading"){
-    status.classList.add("reading");
-  } else if(newLibrary[i].status === "Booked"){
-    status.classList.add("booked");
-  } else {
-    status.classList.add("readed");
-  }
+  // if(newLibrary[i].status === "Reading"){
+  //   status.classList.add("reading");
+  // } else if(newLibrary[i].status === "Booked"){
+  //   status.classList.add("booked");
+  // } else {
+  //   status.classList.add("readed");
+  // }
     
-  oneDiv.appendChild(title);
-  oneDiv.appendChild(author);
-  oneDiv.appendChild(numOfPages);
+  // oneDiv.appendChild(title);
+  // oneDiv.appendChild(author);
+  // oneDiv.appendChild(numOfPages);
 
-  botDiv.appendChild(status);
-  botDiv.appendChild(removeBtn);
+  // botDiv.appendChild(status);
+  // botDiv.appendChild(removeBtn);
 
-  div.append(botDiv);
-  div.append(oneDiv);
+  // div.append(botDiv);
+  // div.append(oneDiv);
   
-  fullCap.append(div);
+  // fullCap.append(div);
 
-  removeBtn.addEventListener("click", removeBook);
-  status.addEventListener("click", changeStatus);
+  // removeBtn.addEventListener("click", removeBook);
+  // status.addEventListener("click", changeStatus);
 }
 
 
@@ -184,9 +197,10 @@ function deleteHistory() {
 
 // Removes book from HTML and array
 function removeBook(event) {
-  let targetTop = event.currentTarget.parentNode.parentNode;
-  targetTop.remove();
-  newLibrary.splice(newLibrary.map(elem => elem.title).indexOf(targetTop.querySelector('.title').innerHTML), 1)
+  // let targetTop = event.currentTarget.parentNode.parentNode;
+  // targetTop.remove();
+  // newLibrary.splice(newLibrary.map(elem => elem.title).indexOf(targetTop.querySelector('.title').innerHTML), 1)
+  console.log('AUUUUUUUUUGH')
 }
 
 //showing/hiding Modal
