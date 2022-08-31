@@ -129,19 +129,19 @@ for( let i = 0; i < newLibrary.length; i++){
   // botDiv.classList.add('top-section')
   // let oneDiv = document.createElement('div')
   // oneDiv.classList.add('main-section')
-
-  let cardDiv = `<div class="bookcard">
-    <div class="top-section">  
-      <button class="status">${newLibrary[i].status}</button>
-      <button class="remove" onclick="removeBook()">✖ Remove</button>
-    </div>
-    <div class="main-section">
-      <p class="title">${newLibrary[i].title}</p>
-      <p class="author">by ${newLibrary[i].author}</p>
-      <p class="number-of-pages">${newLibrary[i].numOfPages} pages</p>
-    </div>
-  </div>`
-  fullCap.innerHTML = cardDiv;
+  let cardDiv=
+    `<div class="bookcard">
+      <div class="top-section">  
+        <button class="status">${newLibrary[i].status}</button>
+        <button class="remove" onclick="removeBook(this)">✖ Remove</button>
+      </div>
+      <div class="main-section">
+        <p class="title">${newLibrary[i].title}</p>
+        <p class="author">by ${newLibrary[i].author}</p>
+        <p class="number-of-pages">${newLibrary[i].numOfPages} pages</p>
+      </div>
+    </div>`;
+  fullCap += cardDiv;
 
   // let author = document.createElement('p');
   // author.classList.add("author");
@@ -186,6 +186,7 @@ for( let i = 0; i < newLibrary.length; i++){
   // removeBtn.addEventListener("click", removeBook);
   // status.addEventListener("click", changeStatus);
 }
+document.getElementById("catalog").innerHTML = fullCap
 
 
 
@@ -196,11 +197,10 @@ function deleteHistory() {
 }
 
 // Removes book from HTML and array
-function removeBook(event) {
-  // let targetTop = event.currentTarget.parentNode.parentNode;
-  // targetTop.remove();
-  // newLibrary.splice(newLibrary.map(elem => elem.title).indexOf(targetTop.querySelector('.title').innerHTML), 1)
-  console.log('AUUUUUUUUUGH')
+function removeBook(element) {
+  let topTarget = element.parentNode.parentNode;
+  topTarget.remove();
+  newLibrary.splice(newLibrary.map(elem => elem.title).indexOf(topTarget.querySelector('.title').innerHTML), 1)
 }
 
 //showing/hiding Modal
