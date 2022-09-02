@@ -2,8 +2,6 @@ let newLibrary = [
   {author: 'Maximilliamus', title: 'Gladiator', numOfPages: '300', status: 'Reading'}, 
   {author: 'The Gus', title: 'Hi, my name is Gustavo , but people call me Gus', numOfPages: '491', status: 'Readed'}
 ];
-
-const body = document.querySelector('body');
 let fullCap = document.getElementById('catalog');
 
 
@@ -22,8 +20,6 @@ class Book {
 
 
 
-
-
 // Adds new item into array and clears the input
 function addBookToLibrary() {
   inputValAuthor = $('#author').val();
@@ -36,70 +32,49 @@ function addBookToLibrary() {
   let newBook = new Book(inputValAuthor, inputValTitle, inputValPages, inputValStatus)
   newLibrary.push(newBook);
   
+
   for(let i = 0; i < newLibrary.length; i++){
-    let div = document.createElement('div');
-    div.classList.add("bookcard");
-
-    
-    let botDiv = document.createElement('div');
-    botDiv.classList.add('top-section');
-
-    let oneDiv = document.createElement('div');
-    oneDiv.classList.add('main-section');
-
-    let removeBtn = document.createElement('button');
-    removeBtn.classList.add("remove");
-    removeBtn.appendChild(document.createTextNode('Remove'));
-    
-
-    let author = document.createElement('p');
-    author.classList.add("author");
-    author.appendChild(document.createTextNode("by " + newLibrary[i].author));
-
-    let title = document.createElement('p');
-    title.classList.add("title");
-    title.appendChild(document.createTextNode(newLibrary[i].title));
-    
-    let numOfPages = document.createElement('p');
-    numOfPages.classList.add("number-of-pages");
-    numOfPages.appendChild(document.createTextNode(newLibrary[i].numOfPages + " pages"));
-    
-    let status = document.createElement('button');
-    status.classList.add("status");
-    status.appendChild(document.createTextNode(newLibrary[i].status));
+    let cardDivOne;
     if(newLibrary[i].status === "Reading"){
-      status.classList.add("reading");
+      cardDivOne = `<div class="bookcard">
+        <div class="top-section">
+          <button class="status reading" onclick="changeStatus(this)">${newLibrary[i].status}</button>
+          <button class="remove" onclick="removeBook(this)">✖ Remove</button>
+        </div>`;
     } else if(newLibrary[i].status === "Booked"){
-      status.classList.add("booked");
+      cardDivOne = `<div class="bookcard">
+        <div class="top-section">
+          <button class="status booked" onclick="changeStatus(this)">${newLibrary[i].status}</button>
+          <button class="remove" onclick="removeBook(this)">✖ Remove</button>
+        </div>`;
     } else {
-      status.classList.add("readed");
+      cardDivOne = `<div class="bookcard">
+        <div class="top-section">
+          <button class="status readed" onclick="changeStatus(this)">${newLibrary[i].status}</button>
+          <button class="remove" onclick="removeBook(this)">✖ Remove</button>
+        </div>`;
     }
-      
-    
-    // Adding Author and remove button to the top section of the card
-    oneDiv.appendChild(title);
-    oneDiv.appendChild(author);
-    oneDiv.appendChild(numOfPages);
+    let cardDivTwo =
+        `<div class="main-section">
+          <p class="title">${newLibrary[i].title}</p>
+          <p class="author">by ${newLibrary[i].author}</p>
+          <p class="number-of-pages">${newLibrary[i].numOfPages} pages</p>
+        </div>
+      </div>`;
 
-    botDiv.appendChild(status);
-    botDiv.appendChild(removeBtn);
 
-    div.append(botDiv);
-    div.append(oneDiv);
-    fullCap.append(div);
+    cardDivOne += cardDivTwo;
+    fullCap.innerHTML += cardDivOne;
+    }  
+    document.getElementById("catalog").innerHTML = fullCap.innerHTML;
 
     // Clearing input fields
     $('#author').val('');
     $('#title').val('');
     $('#numOfPages').val('');
-    
-
-
-    
-    removeBtn.addEventListener("click", removeBook);
-    status.addEventListener("click", changeStatus);
-  }  
 };
+
+
 
 function changeStatus(element){
   console.log(element)
@@ -121,77 +96,39 @@ function changeStatus(element){
 
 // shows array for the first time
 for( let i = 0; i < newLibrary.length; i++){
-     
-  // let div = document.createElement('div');
-  // div.classList.add("bookcard");
 
-  // let botDiv = document.createElement('div')
-  // botDiv.classList.add('top-section')
-  // let oneDiv = document.createElement('div')
-  // oneDiv.classList.add('main-section')
-  let cardDiv =
-    `<div class="bookcard">
+  let cardDivOne;
+
+  if(newLibrary[i].status === "Reading"){
+    cardDivOne = `<div class="bookcard">
+      <div class="top-section">
+        <button class="status reading" onclick="changeStatus(this)">${newLibrary[i].status}</button>
+        <button class="remove" onclick="removeBook(this)">✖ Remove</button>
+      </div>`;
+  } else if(newLibrary[i].status === "Booked"){
+    cardDivOne = `<div class="bookcard">
       <div class="top-section">
         <button class="status booked" onclick="changeStatus(this)">${newLibrary[i].status}</button>
         <button class="remove" onclick="removeBook(this)">✖ Remove</button>
-      </div>
-      <div class="main-section">
+      </div>`;
+  } else {
+    cardDivOne = `<div class="bookcard">
+      <div class="top-section">
+        <button class="status readed" onclick="changeStatus(this)">${newLibrary[i].status}</button>
+        <button class="remove" onclick="removeBook(this)">✖ Remove</button>
+      </div>`;
+  }
+  let cardDivTwo =
+      `<div class="main-section">
         <p class="title">${newLibrary[i].title}</p>
         <p class="author">by ${newLibrary[i].author}</p>
         <p class="number-of-pages">${newLibrary[i].numOfPages} pages</p>
       </div>
     </div>`;
-  let bookCard = $('.bookcard')
-  let topSection = $('.top-section');
-  let statusButton = `<button class="status" onclick="changeStatus(this)">${newLibrary[i].status}</button>`
-  if(newLibrary[i].status === "Reading"){
-    statusButton = `<button class="status reading" onclick="changeStatus(this)">${newLibrary[i].status}</button>`;
-  } else if(newLibrary[i].status === "Booked"){
-    statusButton = `<button class="status booked" onclick="changeStatus(this)">${newLibrary[i].status}</button>`
-  } else {
-    statusButton = `<button class="status readed" onclick="changeStatus(this)">${newLibrary[i].status}</button>`;
-  }
-  topSection.innerHTML = statusButton
-  console.log(bookCard.innerHTML)
-  cardDiv += topSection.innerHTML;
-  fullCap.innerHTML += cardDiv;
 
-  // let author = document.createElement('p');
-  // author.classList.add("author");
-  // author.appendChild(document.createTextNode("by " + newLibrary[i].author));
-    
-  // let removeBtn = document.createElement('button');
-  // removeBtn.classList.add("remove");
-  // removeBtn.appendChild(document.createTextNode('✖ Remove'));
 
-  // let title = document.createElement('p');
-  // title.classList.add("title");
-  // title.appendChild(document.createTextNode(newLibrary[i].title));
-    
-  // let numOfPages = document.createElement('p');
-  // numOfPages.classList.add("number-of-pages");
-  // numOfPages.appendChild(document.createTextNode(newLibrary[i].numOfPages + " pages"));
-    
-  // let status = document.createElement('button');
-  // status.classList.add("status");
-  // status.appendChild(document.createTextNode(newLibrary[i].status));
-
-  
-    
-  // oneDiv.appendChild(title);
-  // oneDiv.appendChild(author);
-  // oneDiv.appendChild(numOfPages);
-
-  // botDiv.appendChild(status);
-  // botDiv.appendChild(removeBtn);
-
-  // div.append(botDiv);
-  // div.append(oneDiv);
-  
-  // fullCap.append(div);
-
-  // removeBtn.addEventListener("click", removeBook);
-  // status.addEventListener("click", changeStatus);
+  cardDivOne += cardDivTwo;
+  fullCap.innerHTML += cardDivOne;
 }
 document.getElementById("catalog").innerHTML = fullCap.innerHTML;
 
