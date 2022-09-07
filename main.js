@@ -18,52 +18,59 @@ class Book {
     this.status = status;
   }
 
-  addBookToLibrary() {
+  get addBookToLibrary() {
       
     // Adding constructor data
     
-    
+    console.log(this.status);
+    console.log('bruh')
+    return this.status;
   
-    for(let i = 0; i < newLibrary.length; i++){
-      let cardDivOne;
-      if(newLibrary[i].status === "Reading"){
-        cardDivOne = `<div class="bookcard">
-          <div class="top-section">
-            <button class="status reading" onclick="changeStatus(this)">${newLibrary[i].status}</button>
-            <button class="remove" onclick="removeBook(this)">✖ Remove</button>
-          </div>`;
-      } else if(newLibrary[i].status === "Booked"){
-        cardDivOne = `<div class="bookcard">
-          <div class="top-section">
-            <button class="status booked" onclick="changeStatus(this)">${newLibrary[i].status}</button>
-            <button class="remove" onclick="removeBook(this)">✖ Remove</button>
-          </div>`;
-      } else {
-        cardDivOne = `<div class="bookcard">
-          <div class="top-section">
-            <button class="status readed" onclick="changeStatus(this)">${newLibrary[i].status}</button>
-            <button class="remove" onclick="removeBook(this)">✖ Remove</button>
-          </div>`;
-      }
-      let cardDivTwo =
-          `<div class="main-section">
-            <p class="title">${newLibrary[i].title}</p>
-            <p class="author">by ${newLibrary[i].author}</p>
-            <p class="number-of-pages">${newLibrary[i].numOfPages} pages</p>
-          </div>
-        </div>`;
+    // for(let i = 0; i < newLibrary.length; i++){
+    //   let cardDivOne;
+    //   if(newLibrary[i].status === "Reading"){
+    //     cardDivOne = `<div class="bookcard">
+    //       <div class="top-section">
+    //         <button class="status reading" onclick="changeStatus(this)">${newLibrary[i].status}</button>
+    //         <button class="remove" onclick="removeBook(this)">✖ Remove</button>
+    //       </div>`;
+    //   } else if(newLibrary[i].status === "Booked"){
+    //     cardDivOne = `<div class="bookcard">
+    //       <div class="top-section">
+    //         <button class="status booked" onclick="changeStatus(this)">${newLibrary[i].status}</button>
+    //         <button class="remove" onclick="removeBook(this)">✖ Remove</button>
+    //       </div>`;
+    //   } else {
+    //     cardDivOne = `<div class="bookcard">
+    //       <div class="top-section">
+    //         <button class="status readed" onclick="changeStatus(this)">${newLibrary[i].status}</button>
+    //         <button class="remove" onclick="removeBook(this)">✖ Remove</button>
+    //       </div>`;
+    //   }
+    //   let cardDivTwo =
+    //       `<div class="main-section">
+    //         <p class="title">${newLibrary[i].title}</p>
+    //         <p class="author">by ${newLibrary[i].author}</p>
+    //         <p class="number-of-pages">${newLibrary[i].numOfPages} pages</p>
+    //       </div>
+    //     </div>`;
   
   
-      cardDivOne += cardDivTwo;
-      fullCap.innerHTML += cardDivOne;
-      }  
-      document.getElementById("catalog").innerHTML = fullCap.innerHTML;
+      // cardDivOne += cardDivTwo;
+      // fullCap.innerHTML += cardDivOne;
+      // }  
+      // document.getElementById("catalog").innerHTML = fullCap.innerHTML;
   
-      // Clearing input fields
-      $('#author').val('');
-      $('#title').val('');
-      $('#numOfPages').val('');
+      // // Clearing input fields
+      // $('#author').val('');
+      // $('#title').val('');
+      // $('#numOfPages').val('');
   }
+
+  set newVals(val) {
+    this.status = val;
+  }
+
 
   
 }
@@ -73,7 +80,10 @@ let inputValTitle = $('#title').val();
 let inputValPages = $('#numOfPages').val();
 let inputValStatus = document.querySelector('input[name="status"]:checked').value;
 
-let newBook = new Book(inputValAuthor, inputValTitle, inputValPages, inputValStatus)
+let newBook = new Book(inputValAuthor, inputValTitle, inputValPages, inputValStatus);
+newBook.newVals = 'brujskafd';
+alert(newBook.status)
+// let addNewBook = newBook.addBookToLibrary();
 newLibrary.push(newBook);
 
 
@@ -189,7 +199,7 @@ for(let j = 0; j < selectedRadio.length; j++){
 // selectedRadio.addEventListener("click", activeState2)
 
 header.addEventListener("click", deleteHistory);
-header.addEventListener("click", newBook.addBookToLibrary);
+// header.addEventListener("click", newBook.addBookToLibrary);
 header.addEventListener("click", hideModal);
 
 
