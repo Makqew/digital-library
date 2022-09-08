@@ -10,6 +10,7 @@ const body = document.querySelector('body');
 
 
 class Book {
+  cardDivOne;
   constructor(author, title, numOfPages, status) {
     // the constructor...
     this.author = author;
@@ -24,7 +25,9 @@ class Book {
     
     console.log(this.status);
     console.log('bruh')
-    return this.status;
+    fullCap.innerHTML = `<div class="bookcard">${this.status}</div>`; //it is working bbut function from below deletes it but we dont call it
+    return fullCap.innerHTML;
+    
   
     // for(let i = 0; i < newLibrary.length; i++){
     //   let cardDivOne;
@@ -82,7 +85,7 @@ let inputValStatus = document.querySelector('input[name="status"]:checked').valu
 
 let newBook = new Book(inputValAuthor, inputValTitle, inputValPages, inputValStatus);
 newBook.newVals = 'brujskafd';
-alert(newBook.status)
+// alert(newBook.status);
 // let addNewBook = newBook.addBookToLibrary();
 newLibrary.push(newBook);
 
