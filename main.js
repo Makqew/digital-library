@@ -19,13 +19,22 @@ class Book {
     this.status = status;
   }
 
-  get addBookToLibrary() {
+  get books() {
+    return this.addBookToLibrary
+  }
+
+  addBookToLibrary() {
       
     // Adding constructor data
     
     console.log(this.status);
     console.log('bruh')
-    fullCap.innerHTML = `<div class="bookcard">${this.status}</div>`; //it is working bbut function from below deletes it but we dont call it
+    fullCap.innerHTML = `<div class="bookcard">
+      <div class="top-section">
+        <button class="status reading" onclick="changeStatus(this)">
+          ${this.status}
+          <button class="remove" onclick="removeBook(this)">✖ Remove</button>
+          </div></div>`; //it is working bbut function from below deletes it but we dont call
     return fullCap.innerHTML;
     
   
@@ -70,24 +79,28 @@ class Book {
       // $('#numOfPages').val('');
   }
 
-  set newVals(val) {
-    this.status = val;
-  }
+  // set newVals(val) {
+  //   this.status = val;
+  // }
 
 
   
 }
-let inputValAuthor = $('#author').val();
-console.log(inputValAuthor);
-let inputValTitle = $('#title').val();
-let inputValPages = $('#numOfPages').val();
-let inputValStatus = document.querySelector('input[name="status"]:checked').value;
 
-let newBook = new Book(inputValAuthor, inputValTitle, inputValPages, inputValStatus);
-newBook.newVals = 'brujskafd';
+const newBook = new Book($('#author').val(),$('#title').val(),$('#numOfPages').val(),document.querySelector('input[name="status"]:checked').value);
+console.log(newBook.books)
+
+// let inputValAuthor = $('#author').val();
+// console.log(inputValAuthor);
+// let inputValTitle = $('#title').val();
+// let inputValPages = $('#numOfPages').val();
+// let inputValStatus = document.querySelector('input[name="status"]:checked').value;
+
+// let newBook = new Book(inputValAuthor, inputValTitle, inputValPages, inputValStatus);
+// newBook.newVals = document.querySelector('input[name="status"]:checked').value;
 // alert(newBook.status);
 // let addNewBook = newBook.addBookToLibrary();
-newLibrary.push(newBook);
+// newLibrary.push(newBook);
 
 
 function changeStatus(element) {
@@ -201,7 +214,7 @@ for(let j = 0; j < selectedRadio.length; j++){
 }
 // selectedRadio.addEventListener("click", activeState2)
 
-header.addEventListener("click", deleteHistory);
+// header.addEventListener("click", deleteHistory);
 // header.addEventListener("click", newBook.addBookToLibrary);
 header.addEventListener("click", hideModal);
 
