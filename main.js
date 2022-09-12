@@ -10,7 +10,6 @@ const body = document.querySelector('body');
 
 
 class Book {
-  cardDivOne;
   constructor(author, title, numOfPages, status) {
     // the constructor...
     this.author = author;
@@ -28,55 +27,43 @@ class Book {
     // Adding constructor data
     
     console.log(this.status);
-    console.log('bruh')
-    fullCap.innerHTML = `<div class="bookcard">
-      <div class="top-section">
-        <button class="status reading" onclick="changeStatus(this)">
-          ${this.status}
-          <button class="remove" onclick="removeBook(this)">✖ Remove</button>
-          </div></div>`; //it is working bbut function from below deletes it but we dont call
-    return fullCap.innerHTML;
+    console.log('bruh');
     
   
-    // for(let i = 0; i < newLibrary.length; i++){
-    //   let cardDivOne;
-    //   if(newLibrary[i].status === "Reading"){
-    //     cardDivOne = `<div class="bookcard">
-    //       <div class="top-section">
-    //         <button class="status reading" onclick="changeStatus(this)">${newLibrary[i].status}</button>
-    //         <button class="remove" onclick="removeBook(this)">✖ Remove</button>
-    //       </div>`;
-    //   } else if(newLibrary[i].status === "Booked"){
-    //     cardDivOne = `<div class="bookcard">
-    //       <div class="top-section">
-    //         <button class="status booked" onclick="changeStatus(this)">${newLibrary[i].status}</button>
-    //         <button class="remove" onclick="removeBook(this)">✖ Remove</button>
-    //       </div>`;
-    //   } else {
-    //     cardDivOne = `<div class="bookcard">
-    //       <div class="top-section">
-    //         <button class="status readed" onclick="changeStatus(this)">${newLibrary[i].status}</button>
-    //         <button class="remove" onclick="removeBook(this)">✖ Remove</button>
-    //       </div>`;
-    //   }
-    //   let cardDivTwo =
-    //       `<div class="main-section">
-    //         <p class="title">${newLibrary[i].title}</p>
-    //         <p class="author">by ${newLibrary[i].author}</p>
-    //         <p class="number-of-pages">${newLibrary[i].numOfPages} pages</p>
-    //       </div>
-    //     </div>`;
+      let cardDivOne;
+      if(this.status === "Reading"){
+        cardDivOne = `<div class="bookcard">
+          <div class="top-section">
+            <button class="status reading" onclick="changeStatus(this)">${this.status}</button>
+            <button class="remove" onclick="removeBook(this)">✖ Remove</button>
+          </div>`;
+      } else if(this.status === "Booked"){
+        cardDivOne = `<div class="bookcard">
+          <div class="top-section">
+            <button class="status booked" onclick="changeStatus(this)">${this.status}</button>
+            <button class="remove" onclick="removeBook(this)">✖ Remove</button>
+          </div>`;
+      } else {
+        cardDivOne = `<div class="bookcard">
+          <div class="top-section">
+            <button class="status readed" onclick="changeStatus(this)">${this.status}</button>
+            <button class="remove" onclick="removeBook(this)">✖ Remove</button>
+          </div>`;
+      }
+      let cardDivTwo =
+          `<div class="main-section">
+            <p class="title">${this.title}</p>
+            <p class="author">by ${this.author}</p>
+            <p class="number-of-pages">${this.numOfPages} pages</p>
+          </div>
+        </div>`;
   
   
-      // cardDivOne += cardDivTwo;
-      // fullCap.innerHTML += cardDivOne;
-      // }  
+      cardDivOne += cardDivTwo;
+      return fullCap.innerHTML += cardDivOne;
       // document.getElementById("catalog").innerHTML = fullCap.innerHTML;
   
-      // // Clearing input fields
-      // $('#author').val('');
-      // $('#title').val('');
-      // $('#numOfPages').val('');
+      // Clearing input fields
   }
 
   // set newVals(val) {
@@ -87,21 +74,20 @@ class Book {
   
 }
 
-const newBook = new Book($('#author').val(),$('#title').val(),$('#numOfPages').val(),document.querySelector('input[name="status"]:checked').value);
-console.log(newBook.books)
+function constructorCreator (){
+  let inputValAuthor = $('#author').val();
+  let inputValTitle = $('#title').val();
+  let inputValPages = $('#numOfPages').val();
+  let inputValStatus = document.querySelector('input[name="status"]:checked').value;
+  const newBook = new Book(inputValAuthor, inputValTitle, inputValPages, inputValStatus);
+  newLibrary.push(newBook);
+  $('#author').val('');
+  $('#title').val('');
+  $('#numOfPages').val('');
 
-// let inputValAuthor = $('#author').val();
-// console.log(inputValAuthor);
-// let inputValTitle = $('#title').val();
-// let inputValPages = $('#numOfPages').val();
-// let inputValStatus = document.querySelector('input[name="status"]:checked').value;
+  return newBook.books();
 
-// let newBook = new Book(inputValAuthor, inputValTitle, inputValPages, inputValStatus);
-// newBook.newVals = document.querySelector('input[name="status"]:checked').value;
-// alert(newBook.status);
-// let addNewBook = newBook.addBookToLibrary();
-// newLibrary.push(newBook);
-
+}
 
 function changeStatus(element) {
   console.log(element)
@@ -116,7 +102,7 @@ function changeStatus(element) {
   } else if (element.innerHTML === 'Readed') {
     element.innerHTML = 'Reading';
     element.classList.remove('readed');
-    element.classList.add('reading')
+    element.classList.add('reading');
   }  
 };
 
@@ -170,9 +156,9 @@ document.getElementById("catalog").innerHTML = fullCap.innerHTML;
 
 
 // Deletes the previously added array data, to avoid reapeting books
-function deleteHistory() {
-  $('.bookcard').remove();
-}
+// function deleteHistory() {
+//   $('.bookcard').remove();
+// }
 
 // Removes book from HTML and array
 function removeBook(element) {
@@ -216,6 +202,7 @@ for(let j = 0; j < selectedRadio.length; j++){
 
 // header.addEventListener("click", deleteHistory);
 // header.addEventListener("click", newBook.addBookToLibrary);
+header.addEventListener("click", constructorCreator)
 header.addEventListener("click", hideModal);
 
 
