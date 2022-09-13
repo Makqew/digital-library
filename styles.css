@@ -161,9 +161,10 @@ input[type=text]:focus, input[type=number]:focus {
 }
 
 .radio {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 7fr;
+    padding-left: 24px;
     border: 1px solid rgba(0, 0, 0, 0.4);
-    padding: 48px 8px 48px 48px;
 }
 
 .radio > input:hover, .radio > label:hover {
@@ -171,8 +172,8 @@ input[type=text]:focus, input[type=number]:focus {
 }
 
 .radio input {
-    width: 48px;
-    height: 48px;
+    width: 100%;
+    height: 100%;
     align-self: center;
 }
 
@@ -182,7 +183,7 @@ input[type=text]:focus, input[type=number]:focus {
 
 .radio > label {
     font-size: 48px;
-    padding: 48px 48px 48px 16px;
+    padding: 96px 48px 96px 16px;
 }
 
 

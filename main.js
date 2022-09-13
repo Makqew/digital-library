@@ -1,5 +1,3 @@
-// create a setter method for a book library that adds new book to array
-// then make a render method to render the page
 
 let newLibrary = [
   {author: 'Maximilliamus', title: 'Gladiator', numOfPages: '300', status: 'Reading'}, 
@@ -18,18 +16,8 @@ class Book {
     this.status = status;
   }
 
-  get books() {
-    return this.addBookToLibrary
-  }
-
   addBookToLibrary() {
-      
-    // Adding constructor data
-    
-    console.log(this.status);
-    console.log('bruh');
-    
-  
+
       let cardDivOne;
       if(this.status === "Reading"){
         cardDivOne = `<div class="bookcard">
@@ -50,6 +38,8 @@ class Book {
             <button class="remove" onclick="removeBook(this)">✖ Remove</button>
           </div>`;
       }
+
+
       let cardDivTwo =
           `<div class="main-section">
             <p class="title">${this.title}</p>
@@ -62,13 +52,8 @@ class Book {
       cardDivOne += cardDivTwo;
       return fullCap.innerHTML += cardDivOne;
       // document.getElementById("catalog").innerHTML = fullCap.innerHTML;
-  
-      // Clearing input fields
   }
 
-  // set newVals(val) {
-  //   this.status = val;
-  // }
 
 
   
@@ -79,18 +64,35 @@ function constructorCreator (){
   let inputValTitle = $('#title').val();
   let inputValPages = $('#numOfPages').val();
   let inputValStatus = document.querySelector('input[name="status"]:checked').value;
+
+
   const newBook = new Book(inputValAuthor, inputValTitle, inputValPages, inputValStatus);
   newLibrary.push(newBook);
+
+
   $('#author').val('');
   $('#title').val('');
   $('#numOfPages').val('');
 
-  return newBook.books();
+  return newBook.addBookToLibrary();
 
 }
 
+
+
+// shows array for the first time
+for( let i = 0; i < newLibrary.length; i++){
+  const initBook = new Book(newLibrary[i].author, newLibrary[i].title, newLibrary[i].numOfPages, newLibrary[i].status )
+  initBook.addBookToLibrary();
+}
+
+
+
+
+//Functions
+
+//Changing status of the book
 function changeStatus(element) {
-  console.log(element)
   if(element.innerHTML === 'Reading'){
     element.innerHTML = 'Booked';
     element.classList.remove('reading');
@@ -99,66 +101,13 @@ function changeStatus(element) {
     element.innerHTML = 'Readed';
     element.classList.remove('booked');
     element.classList.add('readed');
-  } else if (element.innerHTML === 'Readed') {
+  } else {
     element.innerHTML = 'Reading';
     element.classList.remove('readed');
     element.classList.add('reading');
   }  
 };
 
-// Adds new item into array and clears the input
-
-
-
-
-
-
-
-// shows array for the first time
-for( let i = 0; i < newLibrary.length; i++){
-
-  let cardDivOne;
-
-  if(newLibrary[i].status === "Reading"){
-    cardDivOne = `<div class="bookcard">
-      <div class="top-section">
-        <button class="status reading" onclick="changeStatus(this)">${newLibrary[i].status}</button>
-        <button class="remove" onclick="removeBook(this)">✖ Remove</button>
-      </div>`;
-  } else if(newLibrary[i].status === "Booked"){
-    cardDivOne = `<div class="bookcard">
-      <div class="top-section">
-        <button class="status booked" onclick="changeStatus(this)">${newLibrary[i].status}</button>
-        <button class="remove" onclick="removeBook(this)">✖ Remove</button>
-      </div>`;
-  } else {
-    cardDivOne = `<div class="bookcard">
-      <div class="top-section">
-        <button class="status readed" onclick="changeStatus(this)">${newLibrary[i].status}</button>
-        <button class="remove" onclick="removeBook(this)">✖ Remove</button>
-      </div>`;
-  }
-  let cardDivTwo =
-      `<div class="main-section">
-        <p class="title">${newLibrary[i].title}</p>
-        <p class="author">by ${newLibrary[i].author}</p>
-        <p class="number-of-pages">${newLibrary[i].numOfPages} pages</p>
-      </div>
-    </div>`;
-
-
-  cardDivOne += cardDivTwo;
-  fullCap.innerHTML += cardDivOne;
-}
-document.getElementById("catalog").innerHTML = fullCap.innerHTML;
-
-
-
-
-// Deletes the previously added array data, to avoid reapeting books
-// function deleteHistory() {
-//   $('.bookcard').remove();
-// }
 
 // Removes book from HTML and array
 function removeBook(element) {
@@ -179,6 +128,16 @@ function hideModal() {
 }
 
 
+
+
+
+//Adding click event on the radios
+let selectedRadio = document.querySelectorAll('input[name="status"]');
+for(let j = 0; j < selectedRadio.length; j++){
+  selectedRadio[j].addEventListener('click', activeState);
+}
+
+//Making the radio button background active
 function activeState(){
   let allRadios = document.querySelectorAll('input[name="status"]');
   for(let k = 0; k < allRadios.length; k++){
@@ -188,20 +147,12 @@ function activeState(){
       allRadios[k].parentNode.style.backgroundColor = "white";
     }  
   }
-  }
-
-// Initiates 4 functions after click on the button
-let header = document.querySelector('.primary');
-
-let selectedRadio = document.querySelectorAll('input[name="status"]');
-for(let j = 0; j < selectedRadio.length; j++){
-  selectedRadio[j].addEventListener('click', activeState);
-  console.log(selectedRadio[j].value);
 }
-// selectedRadio.addEventListener("click", activeState2)
 
-// header.addEventListener("click", deleteHistory);
-// header.addEventListener("click", newBook.addBookToLibrary);
+
+
+// Initiates 2 functions after click on the button
+let header = document.querySelector('.primary');
 header.addEventListener("click", constructorCreator)
 header.addEventListener("click", hideModal);
 
